@@ -3,7 +3,7 @@ import re
 import subprocess
 from PIL import Image
 
-subprocess.run(["rm", "-rf", "public/*"])
+subprocess.run(["rm", "-rf", "docs/*"])
 subprocess.run(["git", "clone", "https://github.com/surisuririsu/gakumas-data"])
 
 IMAGE_SIZES = {
@@ -17,8 +17,8 @@ IMAGE_SIZES = {
 
 for image_type, size in IMAGE_SIZES.items():
     snake_slug = re.sub("([A-Z]+)", r"_\1", image_type).lower()
-    if not os.path.exists(f"public/{snake_slug}"):
-        os.makedirs(f"public/{snake_slug}")
+    if not os.path.exists(f"docs/{snake_slug}"):
+        os.makedirs(f"docs/{snake_slug}")
 
     directory = f"gakumas-data/images/{image_type}"
     for filename in os.listdir(directory):
@@ -29,7 +29,7 @@ for image_type, size in IMAGE_SIZES.items():
             im = im.resize((size, int(height * size / width)))
             im = im.convert("RGB")
             im.save(
-                f"public/{snake_slug}/{re.sub('\.(png|jpg)', '.webp', filename)}",
+                f"docs/{snake_slug}/{re.sub('\.(png|jpg)', '.webp', filename)}",
                 "webp",
             )
 
