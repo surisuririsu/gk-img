@@ -27,10 +27,13 @@ for image_type, size in IMAGE_SIZES.items():
             im = Image.open(f)
             width, height = im.size
             im = im.resize((size, int(height * size / width)))
-            im = im.convert("RGB")
-            im.save(
-                f"docs/{snake_slug}/{re.sub('\.(png|jpg)', '.webp', filename)}",
-                "webp",
-            )
+            if image_type == "idols":
+                im.save(f"docs/{snake_slug}/{filename}")
+            else:
+                im = im.convert("RGB")
+                im.save(
+                    f"docs/{snake_slug}/{re.sub('\.(png|jpg)', '.webp', filename)}",
+                    "webp",
+                )
 
 subprocess.run(["rm", "-rf", "gakumas-data"])
