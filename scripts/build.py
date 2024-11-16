@@ -3,7 +3,7 @@ import re
 import subprocess
 from PIL import Image
 
-subprocess.run(["rm", "-rf", "docs/*"])
+subprocess.run(["rm", "-rf", "docs/*s"])
 subprocess.run(["git", "clone", "https://github.com/surisuririsu/gakumas-data"])
 
 IMAGE_SIZES = {
