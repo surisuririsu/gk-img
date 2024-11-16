@@ -27,12 +27,18 @@ for image_type, size in IMAGE_SIZES.items():
             im = Image.open(f)
             width, height = im.size
             im = im.resize((size, int(height * size / width)))
+
+            id = int(re.split("[_.]", filename)[0])
+            group = int(id / 100)
+            if not os.path.exists(f"docs/{snake_slug}/{group}"):
+                os.makedirs(f"docs/{snake_slug}/{group}")
+
             if image_type == "idols":
-                im.save(f"docs/{snake_slug}/{filename}")
+                im.save(f"docs/{snake_slug}/{group}/{filename}")
             else:
                 im = im.convert("RGB")
                 im.save(
-                    f"docs/{snake_slug}/{re.sub('\.(png|jpg)', '.webp', filename)}",
+                    f"docs/{snake_slug}/{group}/{re.sub('\.(png|jpg)', '.webp', filename)}",
                     "webp",
                 )
 
